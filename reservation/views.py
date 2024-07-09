@@ -8,10 +8,10 @@ from . models import *
 
 
 def home(request):
-    reservas = Reserva.objects.all()
+    reservations = Reserva.objects.all()
 
     context = {
-        'reservas': reservas,
+        'reservations': reservations,
     }
 
     return render(request, 'index.html', context)
