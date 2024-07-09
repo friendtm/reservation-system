@@ -1,0 +1,70 @@
+{% load static %}
+{% load bootstrap5 %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{% endblock title %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+    {% bootstrap_css %}
+    {% bootstrap_javascript %}
+    
+</head>
+<body class="d-flex flex-column h-100">
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="{% url 'home' %}">BARBERSHOP</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">HOME</a>
+              </li>
+              <li class="nav-item">
+                {% if request.user.is_authenticated %}
+                <a class="nav-link" href="{% url 'pre_reserva' %}">RESERVA</a>
+                {% else %}
+                <a class="nav-link disabled" href="{% url 'pre_reserva' %}">RESERVA</a>
+                {% endif %}
+              </li>
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  MAIS
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                  <li><a class="dropdown-item" href="#">SOBRE</a></li>
+                  <li><a class="dropdown-item" href="#">CONTACTO</a></li>
+                  {% if request.user.is_authenticated %}
+                  </ul>
+                </li>
+                  {% else %}
+                  <li><hr class="dropdown-divider"></li>
+                  <li><a class="dropdown-item" href="{% url 'register' %}">REGISTAR</a></li>
+                  {% endif %}
+                </ul>
+              </li>
+            </ul>
+            {% if request.user.is_authenticated %}
+            <a href="{% url 'logout' %}" class="btn btn-outline-danger">Logout</a>
+            {% else %}
+                <a href="{% url 'login' %}" class="btn btn-outline-success">Login</a>
+            {% endif %}
+          </div>
+        </div>
+      </nav>
+
+{% block content %}
+      
+{% endblock content %}
+
+<footer class="footer fixed-bottom mt-auto py-3 bg-light">
+    <div class="container">
+      <span class="text-muted">© All Rights Reserved 2024 | Code & Design: Diogo Sal</span>
+    </div>
+  </footer>
+</body>
+</html>

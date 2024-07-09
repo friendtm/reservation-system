@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <select name="day_id" id="day-select">
+        {% for day in days %}
+        <option value="{{day.id}}">{{day.day}}</option>
+        {% endfor %}
+    </select>
+
+    <a id="barber-link1" href="#" class="btn btn-primary">Barbeiro 1</a>
+    <a id="barber-link2" href="#" class="btn btn-primary">Barbeiro 2</a>
+    <a id="barber-link3" href="#" class="btn btn-primary">Barbeiro 3</a>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the select element and the anchor element
+        var daySelect = document.getElementById("day-select");
+        var barbeiroLink1 = document.getElementById("barber-link1");
+        var barbeiroLink2 = document.getElementById("barber-link2");
+        var barbeiroLink3 = document.getElementById("barber-link3");
+
+        // Function to update the URL in the anchor tag
+        function updateLink() {
+            var dayId = daySelect.value;
+            var url1 = "{% url 'reserva' 2 0 %}".replace('0', dayId);
+            var url2 = "{% url 'reserva' 3 0 %}".replace('0', dayId);
+            var url3 = "{% url 'reserva' 1 0 %}".replace('0', dayId);
+            barbeiroLink1.href = url1;
+            barbeiroLink2.href = url2;
+            barbeiroLink3.href = url3;
+            
+        }
+
+        // Update the link initially
+        updateLink();
+
+        // Add an event listener to update the link when the selected day changes
+        daySelect.addEventListener("change", updateLink);
+    });
+</script>
+{% endblock content %}

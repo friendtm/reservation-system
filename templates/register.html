@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <div class="container-fluid text-center mt-5 form-control">
+        <h1>REGISTO</h1>
+        <form method="POST" class="form">
+            {% csrf_token %}
+            <div class="form-group mt-2">
+                <input type="text" name="username" id="username" placeholder="Username">
+            </div>
+            <div class="form-group mt-2">
+                <input type="text" name="fname" id="fname" placeholder="Nome">
+            </div>
+            <div class="form-group mt-2">
+                <input type="text" name="lname" id="lname" placeholder="Apelido">
+            </div>
+            <div class="form-group mt-2">
+                <input type="email" name="email" id="email" placeholder="Email">
+            </div>
+            <div class="form-group mt-2">
+                <input type="password" name="password" id="password" placeholder="Password">
+            </div>
+            <div class="form-group mt-2">
+                <button type="submit" class="btn btn-danger">Registar</button>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock content %}

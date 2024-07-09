@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    {% for reserva in reservas %}
+        <h5>{{reserva.day}} | {{reserva.time}} | {{reserva.user.first_name}} {{reserva.user.last_name}}</h5>
+    {% endfor %}
+</div>
+{% endblock content %}
