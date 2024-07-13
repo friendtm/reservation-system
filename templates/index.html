@@ -2,8 +2,8 @@
 
 {% block content %}
 <div class="container">
-    {% for reservation in reservations %}
-        <h5>{{reservation.day}} | {{reservation.time}} | {{reservation.user.first_name}} {{reservation.user.last_name}}</h5>
+    {% for booking in bookings %}
+        <h5>{{booking.day}} | {{booking.time}} | {{booking.user.first_name}} {{booking.user.last_name}}</h5>
     {% endfor %}
 </div>
 {% endblock content %}

@@ -24,9 +24,9 @@
         // Function to update the URL in the anchor tag
         function updateLink() {
             var dayId = daySelect.value;
-            var url1 = "{% url 'reserva' 2 0 %}".replace('0', dayId);
-            var url2 = "{% url 'reserva' 3 0 %}".replace('0', dayId);
-            var url3 = "{% url 'reserva' 1 0 %}".replace('0', dayId);
+            var url1 = "{% url 'booking' 2 0 %}".replace('0', dayId);
+            var url2 = "{% url 'booking' 3 0 %}".replace('0', dayId);
+            var url3 = "{% url 'booking' 4 0 %}".replace('0', dayId);
             barbeiroLink1.href = url1;
             barbeiroLink2.href = url2;
             barbeiroLink3.href = url3;

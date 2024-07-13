@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>{{ barber.first_name }} {{ barber.last_name }}</h1>
+    <br>
+    {% for booking in bookings %}
+        {% if booking.is_done is True %}
+        <div class="card">
+            <h5 class="card-header">{{ booking.time }} - {{ booking.user}}</h5>
+            <div class="card-body bg-success text-white">
+              <h5 class="card-title">Cabelo / Cabelo e Barba</h5>
+              <p class="card-text">Observaçoes</p>
+              <a href="{% url 'cut_done' booking.id barber.id %}" class="btn btn-primary">Feito</a>
+              <a href="{% url 'cut_cancelled' booking.id barber.id %}" class="btn btn-danger">Cancelado</a>
+            </div>
+          </div>
+          <br>
+          {% else %}
+            <div class="card">
+                <h5 class="card-header">{{ booking.time }} - {{ booking.user}}</h5>
+                <div class="card-body">
+                <h5 class="card-title">Cabelo / Cabelo e Barba</h5>
+                <p class="card-text">Observaçoes</p>
+                <a href="{% url 'cut_done' booking.id barber.id %}" class="btn btn-primary">Feito</a>
+                <a href="{% url 'cut_cancelled' booking.id barber.id %}" class="btn btn-danger">Cancelado</a>
+                </div>
+            </div>
+          {% endif %}
+    {% endfor %}
+</div>
+{% endblock content %}

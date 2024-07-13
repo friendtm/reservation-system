@@ -1,24 +1,29 @@
 from django.shortcuts import render, redirect
+
 from django.contrib import messages
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.hashers import make_password
+
+from django.http import HttpResponseRedirect
+from django.urls import reverse
+
 from . models import *
 
 
 def home(request):
-    reservations = Reserva.objects.all()
+    bookings = Reserva.objects.all()
 
     context = {
-        'reservations': reservations,
+        'bookings': bookings,
     }
 
     return render(request, 'index.html', context)
 
 
 @login_required(login_url='login')
-def reserva(request, barber_id, day_id):
+def booking(request, barber_id, day_id):
     day = ServicoDia.objects.get(id=day_id)
     barber = barber_id
 
@@ -107,3 +112,29 @@ def pre_reserva(request):
         'days': days,
     }
     return render(request, 'pre_reserva.html', context)
+
+
+def profile_page(request, barber_id):
+    try:
+        User.objects.get(id=barber_id, is_staff=True)
+        barber = User.objects.get(id=barber_id)
+    except User.DoesNotExist:
+        return redirect('home')
+        
+    if request.user.is_staff is True:
+        schedules = get_bookings(barber_id)
+        
+        context = {
+            'barber': barber,
+            'bookings': schedules,
+        }
+        return render(request, 'schedules.html', context)
+    else:
+        return redirect('home')
+    
+    
+def cut_done(request, cut_id, barber_id):
+    cut = Reserva.objects.get(id=cut_id)
+    cut.is_done = True
+    cut.save()
+    return redirect('schedules', barber_id)

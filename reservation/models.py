@@ -39,3 +39,10 @@ def get_time_slots(day, barber):
     available_time_slots = all_time_slots.exclude(id__in=booked_time_slots)
     
     return available_time_slots
+
+
+def get_bookings(barber):
+    # Get all time slots
+    schedules = Reserva.objects.filter(barber=barber).order_by('time')
+    
+    return schedules
